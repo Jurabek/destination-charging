@@ -2,7 +2,7 @@ package io.hubject.destination.charging.services;
 
 import io.hubject.destination.charging.dtos.ChargerInfoDto;
 import io.hubject.destination.charging.exceptions.ChargerNotFoundException;
-import io.hubject.destination.charging.mappers.EntityToDtoMapper;
+import io.hubject.destination.charging.mappers.ChargerInfoMapper;
 import io.hubject.destination.charging.model.ChargerInfoEntity;
 import io.hubject.destination.charging.repositories.ChargerInfoRepository;
 import org.junit.jupiter.api.Assertions;
@@ -29,9 +29,28 @@ public class ChargerInfoUnitTest {
     @Mock
     private ChargerInfoRepository repository;
     @Mock
-    private EntityToDtoMapper mapper;
+    private ChargerInfoMapper mapper;
+
     @InjectMocks
     private ChargerInfoServiceIml chargerInfoService;
+
+    @Test
+    public void given_valid_dtoBody_create_should_save_data() {
+        // arrange
+        ChargerInfoEntity createdEntity = new ChargerInfoEntity();
+        ChargerInfoDto dto = new ChargerInfoDto();
+        ChargerInfoDto createdDto = new ChargerInfoDto();
+
+        when(mapper.fromChargerInfoDto(dto)).thenReturn(createdEntity);
+        when(repository.save(createdEntity)).thenReturn(createdEntity);
+        when(mapper.fromChargerInfoEntity(createdEntity)).thenReturn(createdDto);
+
+        // act
+        ChargerInfoDto result = chargerInfoService.create(dto);
+
+        // assert
+        assertEquals(createdDto, result);
+    }
 
     @Test
     public void given_valid_coordinate_and_radius_getByLocationWithinRadius_should_return_chargers() {

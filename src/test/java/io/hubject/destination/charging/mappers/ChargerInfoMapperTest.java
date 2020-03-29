@@ -12,11 +12,11 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-public class EntityToDtoMapperTest {
+public class ChargerInfoMapperTest {
     @Test
     public void given_Point_should_return_location_dto() {
         // arrange
-        EntityToDtoMapper mapper = new EntityToDtoMapperIml();
+        ChargerInfoMapper mapper = new ChargerInfoMapperIml();
 
         // act
         LocationDto dto = mapper.fromGeoJsonPoint(new GeoJsonPoint(20200.3232, 20203.2232));
@@ -29,7 +29,7 @@ public class EntityToDtoMapperTest {
     @Test
     public void given_ChargerInfoEntity_should_return_dto() {
         // arrange
-        EntityToDtoMapper mapper = new EntityToDtoMapperIml();
+        ChargerInfoMapper mapper = new ChargerInfoMapperIml();
         ChargerInfoEntity chargerInfoEntity = new ChargerInfoEntity();
         String entityId = UUID.randomUUID().toString();
         chargerInfoEntity.setId(entityId);
