@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  destination-charging-api:
+    image: hubject/destination-charging
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8090:8090"
+    depends_on:
+      - mongo-db
+    environment:
+      - SPRING_DATA_MONGODB_HOST=mongo-db
+
+  mongo-db:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - chargers-nosqldata:/data/db
+
+volumes:
+  chargers-nosqldata:
+    external: false

@@ -1,0 +1,9 @@
+server:
+  port: 8090
+
+spring:
+  data:
+    mongodb:
+      database: destination_charging
+      port: 27017
+      host: localhost
